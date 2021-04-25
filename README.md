@@ -141,7 +141,7 @@ void move(char *fName, char *stevFolder)
 <br>(b) Foto peliharaan perlu dikategorikan sesuai jenis peliharaan, maka kamu harus membuat folder untuk setiap jenis peliharaan yang ada dalam zip. Karena kamu tidak mungkin memeriksa satu-persatu, maka program harus membuatkan folder-folder yang dibutuhkan sesuai dengan isi zip.
 Contoh: Jenis peliharaan kucing akan disimpan dalam “/petshop/cat”, jenis peliharaan kura-kura akan disimpan dalam “/petshop/turtle”.
 <br>(c) Setelah folder kategori berhasil dibuat, programmu akan memindahkan foto ke folder dengan kategori yang sesuai dan di rename dengan nama peliharaan.
-Contoh: “/petshop/cat/joni.jpg”.  
+Contoh: “/petshop/cat/joni.jpg”.
 <br>(d) Karena dalam satu foto bisa terdapat lebih dari satu peliharaan maka foto harus di pindah ke masing-masing kategori yang sesuai. Contoh: foto dengan nama “dog;baro;1_cat;joni;2.jpg” dipindah ke folder “/petshop/cat/joni.jpg” dan “/petshop/dog/baro.jpg”.
 <br>(e) Di setiap folder buatlah sebuah file "keterangan.txt" yang berisi nama dan umur semua peliharaan dalam folder tersebut. Format harus sesuai contoh.
 ```
@@ -219,6 +219,7 @@ void unzip_deletefolder() {
 			              char *args[3] = {"rm", delete, NULL};
 			              execv("/bin/rm", args);
 ```
+<br>Hasilnya pada folder petshop akan berisi folder-folder yang bernamakan jenis-jenis hewan yang ada dan didalam folder itu ada berbagai foto yang memiliki nama dari hewan di foto. Lalu, untuk file keterangan.txt akan berisi data-data dari hewan yang ada di folder. Data-datanya berupa nama dan umur hewan
 
 ***Soal 3***
 <br>Ranora adalah mahasiswa Teknik Informatika yang saat ini sedang menjalani magang di perusahan ternama yang bernama “FakeKos Corp.”, perusahaan yang bergerak dibidang keamanan data. Karena Ranora masih magang, maka beban tugasnya tidak sebesar beban tugas pekerja tetap perusahaan. Di hari pertama Ranora bekerja, pembimbing magang Ranora memberi tugas pertamanya untuk membuat sebuah program.
