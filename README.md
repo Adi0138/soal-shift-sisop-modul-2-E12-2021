@@ -146,3 +146,55 @@ int main(int argc, char* argv[]) {
     }
 }
 ```
+```c
+killProcess(argv[0],argv[1],cwd);
+```
+berguna untuk memanggil fungsi killProcess yang berisi:
+```c
+void killProcess(char arg0[],char arg1[], char pwd[]){
+    FILE *file;
+    char file_path[PATH_MAX];
+    size_t n=2;
+    size_t len = strlen(arg0);
+    if (n > len)
+        return;
+    memmove(arg0, arg0+n, len-n+1);
+
+    strcpy(file_path,pwd);
+    strcat(file_path,"/kill.sh");
+    file=fopen(file_path,"w");
+    fprintf(file,"#!/bin/bash\n");
+    if(strcmp(arg1,"-a")==0){
+        fprintf(file,"pkill -f %s\n",arg0);
+    }
+    else if(strcmp(arg1,"-b")==0){
+        fprintf(file, "kill %d\n", getpid());
+    }
+    fprintf(file,"rm -- $0");
+    fclose(file);
+}
+```
+pada fungsi ```killProcess```, potongan kode:
+```c
+size_t n=2;
+size_t len = strlen(arg0);
+if (n > len)
+    return;
+memmove(arg0, arg0+n, len-n+1);
+```
+berguna untuk menghapus dua karakter pertama dari variabel ```arg0```(awalnya berisi ./nama_output) sehingga "./" akan dihapus dari variabel ```arg0```. Lalu :
+```c
+strcpy(file_path,pwd);
+strcat(file_path,"/kill.sh");
+file=fopen(file_path,"w");
+fprintf(file,"#!/bin/bash\n");
+if(strcmp(arg1,"-z")==0){
+    fprintf(file,"pkill -f %s\n",arg0);
+}
+else if(strcmp(arg1,"-x")==0){
+    fprintf(file, "kill %d\n", getpid());
+}
+fprintf(file,"rm -- $0");
+fclose(file);
+```
+berguna untuk membuat file kill.sh yang akan ditulis perintah ```fprintf(file,"pkill -f %s\n",arg0);``` jika variabel ```arg1``` adalah "-z", yang jika dijalankan akan langsung mematikan seluruh pid yang berjalan berdasarkan nama_output yang berada di variabel ```arg0```. Perintah ```fprintf(file, "kill %d\n", getpid());``` akan ditulis pada file kill.sh jika variabel ```arg1``` adalah "-x", yang jika dijalankan akan langsung menunggu sampe process id selesai yaitu jika telah mendownload 20 file dan melakukan zip. ```fprintf(file,"rm -- $0");``` akan menghapus file itu sendiri jika sudah dijalankan.
