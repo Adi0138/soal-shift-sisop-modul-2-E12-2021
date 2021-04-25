@@ -107,11 +107,11 @@ int birthdaySecond = 0;
                 }
             }else{
                 if(pid2 == 0){
-                    char *downloadmusik[] = {"wget", "--no-check-certificate", "https://drive.google.com/uc?id=1ZG8nRBRPquhYXq_sISdsVcXx5VdEgi-J&export=download", "-O", "Musik_for_stevany.zip", "-q", NULL};
+                    char *downloadmusik[] = {"wget", "--no-check-certificate", "https://drive.google.com/uc?id=1ZG8nRBRPquhYXq_sISdsVcXx5VdEgi-J&export=download", "-O", "Musik_for_Stevany.zip", "-q", NULL};
                     execv("/bin/wget", downloadmusik);
                 }else{
                     while((wait(&status))>0);
-                    char *unzipmusik[] = {"unzip", "-qq", "Musik_for_stevany.zip", NULL};
+                    char *unzipmusik[] = {"unzip", "-qq", "Musik_for_Stevany.zip", NULL};
                     execv("/bin/unzip", unzipmusik);
                 }
             }
@@ -132,11 +132,11 @@ int birthdaySecond = 0;
                 }
             }else{
                 if(pid2 == 0){
-                    char *downloadfilm[] = {"wget", "--no-check-certificate", "https://drive.google.com/uc?id=1ktjGgDkL0nNpY-vT7rT7O6ZI47Ke9xcp&export=download", "-O", "Film_for_stevany.zip", "-q", NULL};
+                    char *downloadfilm[] = {"wget", "--no-check-certificate", "https://drive.google.com/uc?id=1ktjGgDkL0nNpY-vT7rT7O6ZI47Ke9xcp&export=download", "-O", "Film_for_Stevany.zip", "-q", NULL};
                     execv("/bin/wget", downloadfilm);
                 }else{
                     while((wait(&status))>0);
-                    char *unzipfilm[] = {"unzip", "-qq", "Film_for_stevany.zip", NULL};
+                    char *unzipfilm[] = {"unzip", "-qq", "Film_for_Stevany.zip", NULL};
                     execv("/bin/unzip", unzipfilm);
                 }
             }
@@ -157,11 +157,11 @@ int birthdaySecond = 0;
                 }
             }else{
                 if(pid2 == 0){
-                    char *downloadfoto[] = {"wget", "--no-check-certificate", "https://drive.google.com/uc?id=1FsrAzb9B5ixooGUs0dGiBr-rC7TS9wTD&export=download", "-O", "Foto_for_stevany.zip", "-q", NULL};
+                    char *downloadfoto[] = {"wget", "--no-check-certificate", "https://drive.google.com/uc?id=1FsrAzb9B5ixooGUs0dGiBr-rC7TS9wTD&export=download", "-O", "Foto_for_Stevany.zip", "-q", NULL};
                     execv("/bin/wget", downloadfoto);
                 }else{
                     while((wait(&status))>0);
-                    char *unzipfoto[] = {"unzip", "-qq", "Foto_for_stevany.zip", NULL};
+                    char *unzipfoto[] = {"unzip", "-qq", "Foto_for_Stevany.zip", NULL};
                     execv("/bin/unzip", unzipfoto);
                 }
             }
