@@ -24,7 +24,7 @@ void move(char *fName, char *stevFolder)
             }
             if (child == 0)
             {
-                char pathName[10];
+                char pathName[50];
                 strcpy(pathName, fName);
                 strcat(pathName, "/");
                 strcat(pathName, dp->d_name);
