@@ -160,6 +160,65 @@ umur  : 2 tahun
     
 **Jawaban**:
 ---
+<br>Pertama-tama, pada soal pengerjaan ini kita disuruh untuk melakukan unzip dari zip folder. Karena isi zip mungkinterdapat folder-folder yang tidak digunakan maka sekalian saja melakukan unzip tanpa mengekstrak folder yang berada di zip, jadi hanya file saja yang terekstrak.
+```c
+void unzip_deletefolder() {
+	pid_t child_id;
+	int status;
+
+	child_id=fork();
+
+	if(child_id < 0) {
+		exit(EXIT_FAILURE);
+	}
+	
+	if(child_id == 0) {
+		char *argv[7] = {"unzip", "/home/tristan/modul2/pets.zip", "-x", "*/*", "-d", "/home/tristan/modul2/petshop", NULL};
+                execv("/bin/unzip", argv);
+	} else while ((wait(&status)) > 0);
+}
+```
+<br>Setelah itu harus memproses setiap file dengan memasukkan data tiap-tiap foto kedalam variabel. Lalu, memasukkan hasil copy-an dari file kedalam folder yang bernama jenis hewan tersebut dan sekalian mengubah nama filenya.
+```c
+                    char a[100];
+	                	strcpy(a, "/home/tristan/modul2/petshop/");
+	        	        strcat(a,ps->d_name);
+              		
+				            char b[100];
+        		        strcpy(b, "/home/tristan/modul2/petshop/");
+	                	strcat(b,jenis); 
+	        	        strcat(b,"/"); 
+		                strcat(b,nama); 
+        		        strcat(b,".jpg");
+	                	char *argv[]={"cp",a,b,NULL};
+	        	        execute("/bin/cp",argv);
+```
+<br>Dan terakhir untuk membuat isi dari file keterangan.txt dan kemudian diisi kedalam file tersebut
+```c
+                    char c[100];
+         		        strcpy(c, "/home/tristan/modul2/petshop/");
+	              		strcat(c,jenis);
+	        	       	strcat(c,"/keterangan.txt");
+          
+			              char d[100];
+        			      strcat(d,"nama : ");
+		        	      strcat(d,nama);
+	       			      strcat(d,"\numur: ");
+		        	      strcat(d,umur);
+	        		      strcat(d,"tahun\n\n");
+          
+		        	      FILE *x;
+	        		      x=fopen(c,"a");
+			              fputs(d,x);
+        			      fclose(x);
+```
+<br>Dan menghapus file utama yang tidak ada di folder yang seharusnya
+```c
+                    char delete[100] = "/home/tristan/modul2/petshop/";
+        		        strcat(delete, ps->d_name);
+			              char *args[3] = {"rm", delete, NULL};
+			              execv("/bin/rm", args);
+```
 
 ***Soal 3***
 <br>Ranora adalah mahasiswa Teknik Informatika yang saat ini sedang menjalani magang di perusahan ternama yang bernama “FakeKos Corp.”, perusahaan yang bergerak dibidang keamanan data. Karena Ranora masih magang, maka beban tugasnya tidak sebesar beban tugas pekerja tetap perusahaan. Di hari pertama Ranora bekerja, pembimbing magang Ranora memberi tugas pertamanya untuk membuat sebuah program.
