@@ -24,39 +24,84 @@ tersebut diperintahkan bekerja pada 2 sesi yaitu saat 9 April 16:22:00 dan 6 jam
 time_t now = time(NULL);
 struct tm *t = localtime(&now);
 ```
-<br>Lalu dibagi 2 sesi yaitu 6 jam sebelum ulang tahun dan pada saat ulang tahun. Maka dari itu digunakanlah if dengan kondisi
-<br>Ini 6 jam sebelum ulang tahun
+<br>Agar programnya dapat mengetahui ulang tahun Stevany. Maka perlu dibuat variabel baru dengan masing-masing menyimpang tanggal, bulan, jam, waktu, dan detik. Seperti ini.
+```
+int birthday = 9;
+int birthmonth = 3;
+int birthdayHour = 22;
+int birthdayMinute = 22;
+int birthdaySecond = 0;
+```
+<br>Lalu dibagi 2 sesi yaitu 6 jam sebelum ulang tahun dan pada saat ulang tahun. Maka dari itu digunakanlah if dengan kondisi.
+<br>Pada saat 6 jam sebelum ulang tahun
 ```
 birthmonth == t->tm_mon && birthday == t->tm_mday && birthdayHour-6 == t->tm_hour && birthdayMinute == t->tm_min && birthdaySecond == t->tm_sec
 ```
-<br>Ini saat ulang tahun
+<br>Pada saat ulang tahun
 ```
 birthmonth == t->tm_mon && birthday == t->tm_mday && birthdayHour == t->tm_hour && birthdayMinute == t->tm_min && birthdaySecond == t->tm_sec
 ```
-
-***Soal 2***
-<br>Loba bekerja di petshop, suatu saat dia menerima file zip yang berisi foto hewan-hewan pelanggan dan dia disuruh untuk mengategorikan foto-foto tesebut. Karena dia merasa kesusahan untuk mengerjakannya secara manual, dia memutuskan untuk meminta bantuanmu untuk membantu pekerjaannya.
-<br>(a) Pertama-tama program perlu mengextract zip yang diberikan ke dalam folder “/home/[user]/modul2/petshop”. Karena bos Loba teledor, dalam zip tersebut bisa berisi folder-folder yang tidak penting, maka program harus bisa membedakan file dan folder sehingga dapat memproses file yang seharusnya dikerjakan dan menghapus folder-folder yang tidak dibutuhkan.
-<br>(b) Foto peliharaan perlu dikategorikan sesuai jenis peliharaan, maka kamu harus membuat folder untuk setiap jenis peliharaan yang ada dalam zip. Karena kamu tidak mungkin memeriksa satu-persatu, maka program harus membuatkan folder-folder yang dibutuhkan sesuai dengan isi zip.
-Contoh: Jenis peliharaan kucing akan disimpan dalam “/petshop/cat”, jenis peliharaan kura-kura akan disimpan dalam “/petshop/turtle”.
-<br>(c) Setelah folder kategori berhasil dibuat, programmu akan memindahkan foto ke folder dengan kategori yang sesuai dan di rename dengan nama peliharaan. Contoh: “/petshop/cat/joni.jpg”.
-<br>(d) Karena dalam satu foto bisa terdapat lebih dari satu peliharaan maka foto harus di pindah ke masing-masing kategori yang sesuai. Contoh: foto dengan nama “dog;baro;1_cat;joni;2.jpg” dipindah ke folder “/petshop/cat/joni.jpg” dan “/petshop/dog/baro.jpg”.
-<br>(e) Di setiap folder buatlah sebuah file "keterangan.txt" yang berisi nama dan umur semua peliharaan dalam folder tersebut. Format harus sesuai contoh.
+<br>Pada saat 6 jam sebelum ulang tahun. Dilakukan pembuatan folder, mengahapus folder, mendownload file, dan juga mengunzip
+<br>Kode membuat folder Musik dengan nama Musyik dan menghapus folder Musik
 ```
-nama : joni
-umur  : 3 tahun
-
-nama : miko
-umur  : 2 tahun
-
-
+char *makedir1[] = {"mkdir", "Musyik", NULL};
+                    execv("/bin/mkdir", makedir1);
 ```
-<br>Note:
-<li>Setiap data peliharaan disimpan sebagai nama foto dengan format [jenis peliharaan]:[nama peliharaan]:[umur peliharaan dalam tahun]. Jika terdapat lebih dari satu peliharaan, data dipisahkan menggunakan underscore(_).
-<li>Tidak boleh menggunakan fungsi system(), mkdir(), dan rename().
-<li>Menggunakan fork dan exec.
-**Jawaban**:
-    
+```
+char *removemusik[] = {"rm", "-r", "MUSIK", NULL};
+                    execvp("rm", removemusik);
+```
+<br>Kode untuk mendownload musik dan mengextract
+```
+char *downloadmusik[] = {"wget", "--no-check-certificate", "https://drive.google.com/uc?id=1ZG8nRBRPquhYXq_sISdsVcXx5VdEgi-J&export=download", "-O", "Musik_for_stevany.zip", "-q", NULL};
+                    execv("/bin/wget", downloadmusik);
+```
+```
+ char *unzipmusik[] = {"unzip", "-qq", "Musik_for_stevany.zip", NULL};
+                    execv("/bin/unzip", unzipmusik);
+```
+
+<br>Kode membuat folder Film dengan nama Fylm dan menghapus folder Film
+```
+char *makedir2[] = {"mkdir", "Fylm", NULL};
+                    execv("/bin/mkdir", makedir2);
+```
+```
+char *removefilm[] = {"rm", "-r", "FILM", NULL};
+                    execvp("rm", removefilm);
+```
+<br>Kode untuk mendownload film dan mengextract
+```
+char *downloadfilm[] = {"wget", "--no-check-certificate", "https://drive.google.com/uc?id=1ktjGgDkL0nNpY-vT7rT7O6ZI47Ke9xcp&export=download", "-O", "Film_for_stevany.zip", "-q", NULL};
+                    execv("/bin/wget", downloadfilm);
+```
+```
+ char *unzipfilm[] = {"unzip", "-qq", "Film_for_stevany.zip", NULL};
+                    execv("/bin/unzip", unzipfilm);
+```
+<br>Kode membuat folder Foto dengan nama Pyoto dan menghapus folder Foto
+```
+char *makedir3[] = {"mkdir", "Pyoto", NULL};
+                    execv("/bin/mkdir", makedir3);
+```
+```
+char *removefoto[] = {"rm", "-r", "FOTO", NULL};
+                    execvp("rm", removefoto);
+```
+<br>Kode untuk mendownload foto dan mengextract
+```
+char *downloadfoto[] = {"wget", "--no-check-certificate", "https://drive.google.com/uc?id=1FsrAzb9B5ixooGUs0dGiBr-rC7TS9wTD&export=download", "-O", "Foto_for_stevany.zip", "-q", NULL};
+                    execv("/bin/wget", downloadfoto);
+```
+```
+ char *unzipfoto[] = {"unzip", "-qq", "Foto_for_stevany.zip", NULL};
+                    execv("/bin/unzip", unzipfoto);
+```
+
+
+
+
+
 ***Soal 3***
 <br>Ranora adalah mahasiswa Teknik Informatika yang saat ini sedang menjalani magang di perusahan ternama yang bernama “FakeKos Corp.”, perusahaan yang bergerak dibidang keamanan data. Karena Ranora masih magang, maka beban tugasnya tidak sebesar beban tugas pekerja tetap perusahaan. Di hari pertama Ranora bekerja, pembimbing magang Ranora memberi tugas pertamanya untuk membuat sebuah program.
 <br>(a). Ranora harus membuat sebuah program C yang dimana setiap 40 detik membuat sebuah direktori dengan nama sesuai timestamp [YYYY-mm-dd_HH:ii:ss].
