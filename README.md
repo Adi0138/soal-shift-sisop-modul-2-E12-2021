@@ -7,9 +7,7 @@ Kelompok E12 :
 
 ***Soal 1***
 <br>Pada suatu masa, hiduplah seorang Steven yang hidupnya pas-pasan. Steven punya pacar, namun sudah putus sebelum pacaran. Ketika dia galau memikirkan mantan, ia selalu menonton https://www.youtube.com/watch?v=568DH_9CMKI untuk menghilangkan kesedihannya. 
-
 <br>Di lain hal Steven anak yang tidak amat sangat super membenci matkul sisop, beberapa jam setelah diputus oleh pacarnya dia menemukan wanita lain bernama Stevany, namun Stevany berkebalikan dengan Steven karena menyukai sisop. Steven ingin terlihat jago matkul sisop demi menarik perhatian Stevany.
-
 <br>Pada hari ulang tahun Stevany, Steven ingin memberikan Stevany zip berisikan hal-hal yang disukai Stevany. Steven ingin isi zipnya menjadi rapi dengan membuat folder masing-masing sesuai extensi. 
 <br>(a) Dikarenakan Stevany sangat menyukai huruf Y, Steven ingin nama folder-foldernya adalah Musyik untuk mp3, Fylm untuk mp4, dan Pyoto untuk jpg 
 <br>(b) untuk musik Steven mendownloadnya dari link di bawah, film dari link di bawah lagi, dan foto dari link dibawah juga :).
@@ -19,6 +17,22 @@ Kelompok E12 :
 <br>(f) Setelah itu pada waktu ulang tahunnya Stevany, semua folder akan di zip dengan nama Lopyu_Stevany.zip dan semua folder akan di delete(sehingga hanya menyisakan .zip).
 <br>Kemudian Steven meminta bantuanmu yang memang sudah jago sisop untuk membantunya mendapatkan hati Stevany. Bantu Woy!!
 
+<br>Pada pengerjaan soal ini diperintahkan untuk membuat folder yang isinya merupakan hasil extract dari mendownload banyak file didalam folder yang dizipkan dan juga program 
+tersebut diperintahkan bekerja pada 2 sesi yaitu saat 9 April 16:22:00 dan 6 jam setelahnya yaitu 22.00. Yang mana cara kerja sesi tersebut yaitu zip yang sudah didownload yang didalamnya terdapatfolder yang berisikan file tersebut itu diextract lalu dipindahkan ke folderyang namanya sudah diubah. Setelah itu folder-folder hasil extract zip tersebut dizip kembali serta mendelete seluruh folder tadi.
+<br>Untuk mengetahui waktunya kita dugunakan code tersebut yang ada pada library ``` time.h ```
+```
+time_t now = time(NULL);
+struct tm *t = localtime(&now);
+```
+<br>Lalu dibagi 2 sesi yaitu 6 jam sebelum ulang tahun dan pada saat ulang tahun. Maka dari itu digunakanlah if dengan kondisi
+<br>Ini 6 jam sebelum ulang tahun
+```
+birthmonth == t->tm_mon && birthday == t->tm_mday && birthdayHour-6 == t->tm_hour && birthdayMinute == t->tm_min && birthdaySecond == t->tm_sec
+```
+<br>Ini saat ulang tahun
+```
+birthmonth == t->tm_mon && birthday == t->tm_mday && birthdayHour == t->tm_hour && birthdayMinute == t->tm_min && birthdaySecond == t->tm_sec
+```
 
 ***Soal 3***
 <br>Ranora adalah mahasiswa Teknik Informatika yang saat ini sedang menjalani magang di perusahan ternama yang bernama “FakeKos Corp.”, perusahaan yang bergerak dibidang keamanan data. Karena Ranora masih magang, maka beban tugasnya tidak sebesar beban tugas pekerja tetap perusahaan. Di hari pertama Ranora bekerja, pembimbing magang Ranora memberi tugas pertamanya untuk membuat sebuah program.
