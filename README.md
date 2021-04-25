@@ -16,7 +16,7 @@ Kelompok E12 :
 <br>(e) Untuk memudahkan Steven, ia ingin semua hal di atas berjalan otomatis 6 jam sebelum waktu ulang tahun Stevany).
 <br>(f) Setelah itu pada waktu ulang tahunnya Stevany, semua folder akan di zip dengan nama Lopyu_Stevany.zip dan semua folder akan di delete(sehingga hanya menyisakan .zip).
 <br>Kemudian Steven meminta bantuanmu yang memang sudah jago sisop untuk membantunya mendapatkan hati Stevany. Bantu Woy!!
-
+**Jawaban**:
 <br>Pada pengerjaan soal ini diperintahkan untuk membuat folder yang isinya merupakan hasil extract dari mendownload banyak file didalam folder yang dizipkan dan juga program 
 tersebut diperintahkan bekerja pada 2 sesi yaitu saat 9 April 16:22:00 dan 6 jam setelahnya yaitu 22.00. Yang mana cara kerja sesi tersebut yaitu zip yang sudah didownload yang didalamnya terdapatfolder yang berisikan file tersebut itu diextract lalu dipindahkan ke folderyang namanya sudah diubah. Setelah itu folder-folder hasil extract zip tersebut dizip kembali serta mendelete seluruh folder tadi.
 <br>Untuk mengetahui waktunya kita dugunakan code tersebut yang ada pada library ``` time.h ```
@@ -97,6 +97,43 @@ char *downloadfoto[] = {"wget", "--no-check-certificate", "https://drive.google.
  char *unzipfoto[] = {"unzip", "-qq", "Foto_for_stevany.zip", NULL};
                     execv("/bin/unzip", unzipfoto);
 ```
+<br>Pada saat ulang tahun. Maka dibuat zip yang berisikan ketiga folder tadi yaitu Fylm, Musyik, Pyoto
+```
+ char *zip[] = {"zip", "-vmqr", "Lopyu_Stevany.zip", "Musyik", "Fylm","Pyoto", NULL};
+            execv("/bin/zip", zip);
+```
+<br>Dan dibuat ``` sleep(1) ``` untuk mengecek tiap detik.
+
+<br>Dalam memindahkan folder tersebut maka dibuat fungsi move yang mana disana akan menyimpan alamat folder tersebut untuk memindahkan ke folder baru. Berikut kodenya
+```
+void move(char *fName, char *stevFolder)
+{
+    int status;
+    struct dirent *dp;
+    DIR *dir = opendir(fName);
+    if(dir != NULL){
+        while((dp = readdir(dir))){
+            pid_t child = fork();
+            if (child == 0 && (strcmp(dp->d_name, ".") == 0 && strcmp(dp->d_name, "..") == 0))
+            {
+                exit(EXIT_SUCCESS);
+            }
+            if (child == 0)
+            {
+                char pathName[10];
+                strcpy(pathName, fName);
+                strcat(pathName, "/");
+                strcat(pathName, dp->d_name);
+                char *_move[] = {"mv", pathName, stevFolder, NULL};
+                execv("/bin/mv", _move);
+            }
+            while(wait(&status)>0);
+        }
+        (void) closedir(dir);
+    }
+}
+```
+
 
 ***Soal 2***
 <br>Loba bekerja di petshop, suatu saat dia menerima file zip yang berisi foto hewan-hewan pelanggan dan dia disuruh untuk mengategorikan foto-foto tesebut. Karena dia merasa kesusahan untuk mengerjakannya secara manual, dia memutuskan untuk meminta bantuanmu untuk membantu pekerjaannya.
