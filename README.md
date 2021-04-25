@@ -264,7 +264,7 @@ else{
         i++;
     }
 ```
-berguna untuk menunggu setelah folder sebelumnya dibuat. Lalu variabel ```epoch``` akan berisi waktu berdasarkan Epoch Univ yang akan digunakan untuk menentukan ukuran piksel dengan rumus ```epoch=(epoch%1000)+50;```. Cara agar terdownload file dengan ukuran piksel seperti diatas adalah "https://picsum.photos/```epoc```". Nama filenya akan dibuat berdasarkan waktu lokal yang akan dirubah bentuknya menjadi YYYY-mm-dd_HH:mm:ss. File akan didownload sebanyak 20 kali, dan setiap mendownload akan dijeda selama 5 detik.
+berguna untuk menunggu setelah folder sebelumnya dibuat. Lalu variabel ```epoch``` akan berisi waktu berdasarkan Epoch Univ yang akan digunakan untuk menentukan ukuran piksel dengan rumus ```epoch=(epoch%1000)+50;```. Cara agar terdownload file dengan ukuran piksel seperti diatas adalah "https://picsum.photos/". ```epoc``` Nama filenya akan dibuat berdasarkan waktu lokal yang akan dirubah bentuknya menjadi YYYY-mm-dd_HH:mm:ss. File akan didownload sebanyak 20 kali, dan setiap mendownload akan dijeda selama 5 detik.
 ```c
 pid4=fork();
 if(pid4==0){
