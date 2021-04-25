@@ -180,11 +180,11 @@ void unzip_deletefolder() {
 ```
 <br>Setelah itu harus memproses setiap file dengan memasukkan data tiap-tiap foto kedalam variabel. Lalu, memasukkan hasil copy-an dari file kedalam folder yang bernama jenis hewan tersebut dan sekalian mengubah nama filenya.
 ```c
-                    char a[100];
+                    		char a[100];
 	                	strcpy(a, "/home/tristan/modul2/petshop/");
 	        	        strcat(a,ps->d_name);
               		
-				            char b[100];
+				char b[100];
         		        strcpy(b, "/home/tristan/modul2/petshop/");
 	                	strcat(b,jenis); 
 	        	        strcat(b,"/"); 
@@ -195,31 +195,31 @@ void unzip_deletefolder() {
 ```
 <br>Dan terakhir untuk membuat isi dari file keterangan.txt dan kemudian diisi kedalam file tersebut
 ```c
-                    char c[100];
+                    		char c[100];
          		        strcpy(c, "/home/tristan/modul2/petshop/");
 	              		strcat(c,jenis);
 	        	       	strcat(c,"/keterangan.txt");
           
-			              char d[100];
-        			      strcat(d,"nama : ");
-		        	      strcat(d,nama);
-	       			      strcat(d,"\numur: ");
-		        	      strcat(d,umur);
-	        		      strcat(d,"tahun\n\n");
+			        char d[100];
+        			strcat(d,"nama : ");
+		        	strcat(d,nama);
+	       			strcat(d,"\numur: ");
+		        	strcat(d,umur);
+	        		strcat(d,"tahun\n\n");
           
-		        	      FILE *x;
-	        		      x=fopen(c,"a");
-			              fputs(d,x);
-        			      fclose(x);
+		        	FILE *x;
+	        		x=fopen(c,"a");
+			        fputs(d,x);
+        			fclose(x);
 ```
 <br>Dan menghapus file utama yang tidak ada di folder yang seharusnya
 ```c
-                    char delete[100] = "/home/tristan/modul2/petshop/";
-        		        strcat(delete, ps->d_name);
-			              char *args[3] = {"rm", delete, NULL};
-			              execv("/bin/rm", args);
+                    	char delete[100] = "/home/tristan/modul2/petshop/";
+        		strcat(delete, ps->d_name);
+			char *args[3] = {"rm", delete, NULL};
+			execv("/bin/rm", args);
 ```
-<br>Hasilnya pada folder petshop akan berisi folder-folder yang bernamakan jenis-jenis hewan yang ada dan didalam folder itu ada berbagai foto yang memiliki nama dari hewan di foto. Lalu, untuk file keterangan.txt akan berisi data-data dari hewan yang ada di folder. Data-datanya berupa nama dan umur hewan
+<br>Hasilnya pada folder petshop akan berisi folder-folder yang bernamakan jenis-jenis hewan yang ada dan didalam folder itu ada berbagai foto yang memiliki nama dari hewan di foto. Lalu, untuk file keterangan.txt akan berisi data-data dari hewan yang ada di folder. Data-datanya berupa nama dan umur hewan.
 
 ***Soal 3***
 <br>Ranora adalah mahasiswa Teknik Informatika yang saat ini sedang menjalani magang di perusahan ternama yang bernama “FakeKos Corp.”, perusahaan yang bergerak dibidang keamanan data. Karena Ranora masih magang, maka beban tugasnya tidak sebesar beban tugas pekerja tetap perusahaan. Di hari pertama Ranora bekerja, pembimbing magang Ranora memberi tugas pertamanya untuk membuat sebuah program.
