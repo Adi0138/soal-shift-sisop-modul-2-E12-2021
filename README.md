@@ -198,3 +198,89 @@ fprintf(file,"rm -- $0");
 fclose(file);
 ```
 berguna untuk membuat file kill.sh yang akan ditulis perintah ```fprintf(file,"pkill -f %s\n",arg0);``` jika variabel ```arg1``` adalah "-z", yang jika dijalankan akan langsung mematikan seluruh pid yang berjalan berdasarkan nama_output yang berada di variabel ```arg0```. Perintah ```fprintf(file, "kill %d\n", getpid());``` akan ditulis pada file kill.sh jika variabel ```arg1``` adalah "-x", yang jika dijalankan akan langsung menunggu sampe process id selesai yaitu jika telah mendownload 20 file dan melakukan zip. ```fprintf(file,"rm -- $0");``` akan menghapus file itu sendiri jika sudah dijalankan.
+```c
+pid = fork();
+if (pid < 0) {
+    exit(EXIT_FAILURE);
+}
+
+if (pid > 0) {
+    exit(EXIT_SUCCESS);
+}
+
+umask(0);
+
+sid = setsid();
+if (sid < 0) {  
+    exit(EXIT_FAILURE);
+}
+
+if ((chdir("/")) < 0) {
+    exit(EXIT_FAILURE);
+}
+
+close(STDIN_FILENO);
+close(STDOUT_FILENO);
+close(STDERR_FILENO);
+```
+merupakan bagian dari daemon process.
+```c
+strcpy(dest, cwd);
+strcat(dest,"/");
+time (&rawtime);
+timeinfo = localtime (&rawtime);
+strftime(buffer,PATH_MAX,"%Y-%m-%d_%T",timeinfo);
+strcat(dest,buffer);
+pid1=fork();
+if(pid1==0){
+    pid2=fork();
+    if(pid2==0){
+        printf("2");
+        char *argv[] = {"mkdir","-p", dest, NULL};
+        execv("/bin/mkdir", argv);
+    }
+```
+berguna untuk mendapatkan waktu lokal dan mengubah dalam bentuk YYYY-mm-dd_HH:mm:ss, lalu dibuat folder di direktori dimana file dijalankan dan nama filenya berdasarkan waktu yang telah dirubah bentuknya.
+```c
+else{
+    while((wait(&status))>0);
+    int i=1;
+    while(i<=10){
+        pid3=fork();
+        if(pid3==0){
+            time(&epoch);
+            loctime=localtime(&epoch);
+            strftime(timeEpoch,PATH_MAX,"/%Y-%m-%d_%T",loctime);
+            strcpy(nameF,dest);
+            strcat(nameF,timeEpoch);
+            epoch=(epoch%1000)+50;
+            sprintf(times,"%ld",epoch);
+            strcpy(link,"https://picsum.photos/");
+            strcat(link,times);
+            char *path[] = {"wget","-o",nameF,link,NULL};
+            execv("/usr/bin/wget",path);
+        }
+        sleep(5);
+        i++;
+    }
+```
+berguna untuk menunggu setelah folder sebelumnya dibuat. Lalu variabel ```epoch``` akan berisi waktu berdasarkan Epoch Univ yang akan digunakan untuk menentukan ukuran piksel dengan rumus ```epoch=(epoch%1000)+50;```. Cara agar terdownload file dengan ukuran piksel seperti diatas adalah "https://picsum.photos/```epoc```". Nama filenya akan dibuat berdasarkan waktu lokal yang akan dirubah bentuknya menjadi YYYY-mm-dd_HH:mm:ss. File akan didownload sebanyak 20 kali, dan setiap mendownload akan dijeda selama 5 detik.
+```c
+pid4=fork();
+if(pid4==0){
+    chdir(cwd);
+    strcpy(zip_name,dest);
+    strcat(zip_name,".zip");
+    char *zipFile[]={"zip","-mrq",zip_name,buffer,NULL};
+    execv("/usr/bin/zip",zipFile);
+}
+exit(0);
+```
+berguna untuk menzip folder yang filenya telah didownload sebanyak 20 kali dan filenya ikut dipindahkan ke dalam zip tersebut. Lalu perintah ```exit(0);``` berguna agar keluar dari process agar pembuatan folder tidak sekaligus dibuat ketika mendownload suatu file, sehingga mengakibatkan file akan dibuat dengan interval 5 detik.
+```c
+else if(pid1>0){
+    sleep(40);
+}
+```
+berguna untuk membuat folder baru setelah 40 detik.
+
