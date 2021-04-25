@@ -1,15 +1,3 @@
-#include <stdio.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <wait.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <sys/stat.h>
-#include <dirent.h>
- 
- 
- 
 void move(char *fName, char *stevFolder)
 {
     int status;
@@ -36,54 +24,65 @@ void move(char *fName, char *stevFolder)
         (void) closedir(dir);
     }
 }
- 
+
 int main() {
     int status;
     int daemonStatus;
   pid_t pid, sid;        // Variabel untuk menyimpan PID
- 
+
   pid = fork();     // Menyimpan PID dari Child Process
- 
+
   /* Keluar saat fork gagal
   * (nilai variabel pid < 0) */
   if (pid < 0) {
     exit(EXIT_FAILURE);
   }
- 
+
   /* Keluar saat fork berhasil
   * (nilai variabel pid adalah PID dari child process) */
   if (pid > 0) {
     exit(EXIT_SUCCESS);
   }
- 
+
   umask(0);
- 
+
   sid = setsid();
   if (sid < 0) {
     exit(EXIT_FAILURE);
   }
- 
+
   if ((chdir("/home/atenggen/sisop21/modul2")) < 0) {
     exit(EXIT_FAILURE);
   }
- 
+
   close(STDIN_FILENO);
   close(STDOUT_FILENO);
   close(STDERR_FILENO);
- 
+
   int birthday = 9;
 int birthmonth = 3;
 int birthdayHour = 22;
 int birthdayMinute = 22;
 int birthdaySecond = 0;
- 
+
   while (1) {
     // Tulis program kalian di sini
     time_t now = time(NULL);
     struct tm *t = localtime(&now);
- 
-// 6jam sebelum
-    if (birthmonth == t->tm_mon && birthday == t->tm_mday && birthdayHour-6 == t->tm_hour && 
+
+    if (birthmonth == t->tm_mon && birthday == t->tm_mday && birthdayHour == t->tm_hour && 
+    birthdayMinute == t->tm_min && birthdaySecond == t->tm_sec)
+    {
+        pid_t cid;
+        cid = fork();
+        if (cid == 0)
+        {
+            char *zip[] = {"zip", "-vmqr", "Lopyu_Stevany.zip", "Musyik", "Fylm","Pyoto", NULL};
+            execv("/bin/zip", zip);
+        }
+        while((wait(&status))>0);
+    }
+    else if(birthmonth == t->tm_mon && birthday == t->tm_mday && birthdayHour-6 == t->tm_hour && 
     birthdayMinute == t->tm_min && birthdaySecond == t->tm_sec)
     {
         pid_t c1, c2, c3, c4;
@@ -166,19 +165,6 @@ int birthdaySecond = 0;
                 }
             }
         }
-    }
-    // saat ultah
-    else if(birthmonth == t->tm_mon && birthday == t->tm_mday && birthdayHour == t->tm_hour && 
-    birthdayMinute == t->tm_min && birthdaySecond == t->tm_sec)
-    {
-        pid_t cid;
-        cid = fork();
-        if (cid == 0)
-        {
-            char *zip[] = {"zip", "-vmqr", "Lopyu_Stevany.zip", "Musyik", "Fylm","Pyoto", NULL};
-            execv("/bin/zip", zip);
-        }
-        while((wait(&status))>0);
     }
     while((wait(&daemonStatus))>0)
     sleep(1);
