@@ -21,11 +21,13 @@ Kelompok E12 :
 tersebut diperintahkan bekerja pada 2 sesi yaitu saat 9 April 16:22:00 dan 6 jam setelahnya yaitu 22.00. Yang mana cara kerja sesi tersebut yaitu zip yang sudah didownload yang didalamnya terdapatfolder yang berisikan file tersebut itu diextract lalu dipindahkan ke folderyang namanya sudah diubah. Setelah itu folder-folder hasil extract zip tersebut dizip kembali serta mendelete seluruh folder tadi.
 <br>Untuk mengetahui waktunya kita dugunakan code tersebut yang ada pada library ``` time.h ```
 ```
+   c
 time_t now = time(NULL);
 struct tm *t = localtime(&now);
 ```
 <br>Agar programnya dapat mengetahui ulang tahun Stevany. Maka perlu dibuat variabel baru dengan masing-masing menyimpang tanggal, bulan, jam, waktu, dan detik. Seperti ini.
 ```
+   c
 int birthday = 9;
 int birthmonth = 3;
 int birthdayHour = 22;
@@ -35,70 +37,85 @@ int birthdaySecond = 0;
 <br>Lalu dibagi 2 sesi yaitu 6 jam sebelum ulang tahun dan pada saat ulang tahun. Maka dari itu digunakanlah if dengan kondisi.
 <br>Pada saat 6 jam sebelum ulang tahun
 ```
+   c
 birthmonth == t->tm_mon && birthday == t->tm_mday && birthdayHour-6 == t->tm_hour && birthdayMinute == t->tm_min && birthdaySecond == t->tm_sec
 ```
 <br>Pada saat ulang tahun
 ```
+   c
 birthmonth == t->tm_mon && birthday == t->tm_mday && birthdayHour == t->tm_hour && birthdayMinute == t->tm_min && birthdaySecond == t->tm_sec
 ```
 <br>Pada saat 6 jam sebelum ulang tahun. Dilakukan pembuatan folder, mengahapus folder, mendownload file, dan juga mengunzip
 <br>Kode membuat folder Musik dengan nama Musyik dan menghapus folder Musik
 ```
+   c
 char *makedir1[] = {"mkdir", "Musyik", NULL};
                     execv("/bin/mkdir", makedir1);
 ```
 ```
+   c
 char *removemusik[] = {"rm", "-r", "MUSIK", NULL};
                     execvp("rm", removemusik);
 ```
 <br>Kode untuk mendownload musik dan mengextract
 ```
+   c
 char *downloadmusik[] = {"wget", "--no-check-certificate", "https://drive.google.com/uc?id=1ZG8nRBRPquhYXq_sISdsVcXx5VdEgi-J&export=download", "-O", "Musik_for_stevany.zip", "-q", NULL};
                     execv("/bin/wget", downloadmusik);
 ```
 ```
+   c
  char *unzipmusik[] = {"unzip", "-qq", "Musik_for_stevany.zip", NULL};
                     execv("/bin/unzip", unzipmusik);
 ```
 
 <br>Kode membuat folder Film dengan nama Fylm dan menghapus folder Film
 ```
+   c
 char *makedir2[] = {"mkdir", "Fylm", NULL};
                     execv("/bin/mkdir", makedir2);
 ```
 ```
+   c
 char *removefilm[] = {"rm", "-r", "FILM", NULL};
                     execvp("rm", removefilm);
 ```
 <br>Kode untuk mendownload film dan mengextract
 ```
+   c
 char *downloadfilm[] = {"wget", "--no-check-certificate", "https://drive.google.com/uc?id=1ktjGgDkL0nNpY-vT7rT7O6ZI47Ke9xcp&export=download", "-O", "Film_for_stevany.zip", "-q", NULL};
                     execv("/bin/wget", downloadfilm);
 ```
 ```
+   c
  char *unzipfilm[] = {"unzip", "-qq", "Film_for_stevany.zip", NULL};
                     execv("/bin/unzip", unzipfilm);
 ```
 <br>Kode membuat folder Foto dengan nama Pyoto dan menghapus folder Foto
 ```
+   c
 char *makedir3[] = {"mkdir", "Pyoto", NULL};
                     execv("/bin/mkdir", makedir3);
 ```
 ```
+   c
 char *removefoto[] = {"rm", "-r", "FOTO", NULL};
                     execvp("rm", removefoto);
 ```
 <br>Kode untuk mendownload foto dan mengextract
 ```
+   c
 char *downloadfoto[] = {"wget", "--no-check-certificate", "https://drive.google.com/uc?id=1FsrAzb9B5ixooGUs0dGiBr-rC7TS9wTD&export=download", "-O", "Foto_for_stevany.zip", "-q", NULL};
                     execv("/bin/wget", downloadfoto);
 ```
 ```
+   c
  char *unzipfoto[] = {"unzip", "-qq", "Foto_for_stevany.zip", NULL};
                     execv("/bin/unzip", unzipfoto);
 ```
 <br>Pada saat ulang tahun. Maka dibuat zip yang berisikan ketiga folder tadi yaitu Fylm, Musyik, Pyoto
 ```
+   c
  char *zip[] = {"zip", "-vmqr", "Lopyu_Stevany.zip", "Musyik", "Fylm","Pyoto", NULL};
             execv("/bin/zip", zip);
 ```
@@ -106,6 +123,7 @@ char *downloadfoto[] = {"wget", "--no-check-certificate", "https://drive.google.
 
 <br>Dalam memindahkan folder tersebut maka dibuat fungsi move yang mana disana akan menyimpan alamat folder tersebut untuk memindahkan ke folder baru. Berikut kodenya
 ```
+   c
 void move(char *fName, char *stevFolder)
 {
     int status;
