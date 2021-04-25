@@ -1,17 +1,3 @@
-PASTEBIN
-paste
-LOGIN SIGN UP
-SHARE
-TWEET
-Guest User
-Untitled
-A GUEST
-APR 25TH, 2021
-1
-NEVER
-NOTE: Your guest paste has been posted. If you sign up for a free account, you can edit and delete your pastes!
- 5.93 KB
-     
 #include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
